@@ -47,24 +47,49 @@ public class Player {
 	}
 	
 	/**
-	 * TODO fix this equals method.
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object objParam) 
 	{
-		return false;
+		if (objParam == this) return true;
+		if (objParam == null || objParam.getClass() != getClass())
+			return false;
+
+		Player player = (Player) objParam;
+
+		return this.id == player.id && (this.name == player.name || (this.name != null && 
+				this.name.equals(player.name))) && this.symbol == player.symbol;      
+
+		// This code below would be for Apache commons lang api which would be easier
+		// but I assume you want the basics.
+		//
+		// return new EqualsBuilder().
+		// 		append(id, player.id).
+		//      append(name, player.name).
+		//      append(symbol, player.symbol).
+		//      isEquals();       
 	}
-	
+
 	/**
-	 * TODO fix this hashCode method.
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() 
 	{
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + this.id;
+		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime * result + this.symbol.hashCode();
+		return result;
+
+		// Again, below would be for Apache commons lang api
+		//
+		// return new HashCodeBuilder(13, 43).
+		// 		append(id).
+		// 		append(name).
+		//      append(symbol).
+		//	    toHashCode();	
 	}
 }
